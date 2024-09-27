@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Index - iPortfolio Bootstrap Template</title>
+  <title>Ferdinand Manrung Portfolio Website</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -692,7 +692,7 @@
 
     </section>
 
-   <section id="contact" class="contact section">
+ <section id="contact" class="contact section">
 
   <!-- Section Title -->
   <div class="container section-title" data-aos="fade-up">
@@ -758,8 +758,8 @@
               <textarea class="form-control" name="message" rows="10" id="message-field" required=""></textarea>
             </div>
 
-            <!-- Tambahkan Hidden Field untuk Timestamp -->
-            <input type="hidden" name="timestamp" id="timestamp">
+            <!-- Hidden Field dengan nama waktu_pengiriman -->
+            <input type="hidden" name="waktu_pengiriman" id="waktu_pengiriman">
 
             <div class="col-md-12 text-center">
               <div class="loading">Loading</div>
@@ -772,50 +772,52 @@
         </form>
       </div><!-- End Contact Form -->
 
-      <!-- JavaScript untuk menambahkan Timestamp WIB dan menangani pengiriman form -->
+      <!-- JavaScript untuk menambahkan Waktu Pengiriman (WIB) dan menangani pengiriman form -->
       <script>
-        document.getElementById('contactForm').addEventListener('submit', function(event) {
-          event.preventDefault();
-          var form = event.target;
+      // JavaScript untuk menambahkan Waktu Pengiriman (WIB) tanpa detik
+document.getElementById('contactForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  var form = event.target;
 
-          // Tambahkan timestamp dengan timezone Indonesia
-          const date = new Date();
-          const options = {
-            timeZone: 'Asia/Jakarta',
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-          };
-          const formatter = new Intl.DateTimeFormat('id-ID', options);
-          const formattedDate = formatter.format(date);
+  // Tambahkan waktu pengiriman dengan timezone Indonesia (tanpa detik)
+  const date = new Date();
+  const options = {
+    timeZone: 'Asia/Jakarta',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    // Hapus opsi second untuk menghilangkan detik
+  };
+  const formatter = new Intl.DateTimeFormat('id-ID', options);
+  const formattedDate = formatter.format(date);
 
-          // Set nilai hidden field timestamp
-          document.getElementById('timestamp').value = formattedDate;
+  // Set nilai hidden field waktu_pengiriman
+  document.getElementById('waktu_pengiriman').value = formattedDate;
 
-          // Kirimkan form menggunakan fetch
-          fetch(form.action, {
-            method: form.method,
-            body: new FormData(form),
-            headers: {
-              'Accept': 'application/json'
-            }
-          }).then(function(response) {
-            if (response.ok) {
-              document.querySelector('.sent-message').style.display = 'block';
-              document.querySelector('.error-message').style.display = 'none';
-              form.reset();
-            } else {
-              document.querySelector('.error-message').style.display = 'block';
-              document.querySelector('.sent-message').style.display = 'none';
-            }
-          }).catch(function() {
-            document.querySelector('.error-message').style.display = 'block';
-            document.querySelector('.sent-message').style.display = 'none';
-          });
-        });
+  // Kirimkan form menggunakan fetch
+  fetch(form.action, {
+    method: form.method,
+    body: new FormData(form),
+    headers: {
+      'Accept': 'application/json'
+    }
+  }).then(function(response) {
+    if (response.ok) {
+      document.querySelector('.sent-message').style.display = 'block';
+      document.querySelector('.error-message').style.display = 'none';
+      form.reset();
+    } else {
+      document.querySelector('.error-message').style.display = 'block';
+      document.querySelector('.sent-message').style.display = 'none';
+    }
+  }).catch(function() {
+    document.querySelector('.error-message').style.display = 'block';
+    document.querySelector('.sent-message').style.display = 'none';
+  });
+});
+
       </script>
 
     </div>
@@ -823,6 +825,7 @@
   </div>
 
 </section><!-- /Contact Section -->
+
 
 
   </main>
